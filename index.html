@@ -60,11 +60,11 @@
         
         #hero .spline-container {
             position: absolute;
-            top: 52%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 1200px;
-            height: 1100px;
+            height: 1200px;
             z-index: 0;
             opacity: 0.5;
         }
@@ -72,7 +72,7 @@
         #hero .hero-content {
             position: relative;
             z-index: 1;
-            padding-top: 22rem;
+            padding-top: 10rem;
         }
 
         #hero .hero-content h1,
@@ -85,9 +85,13 @@
                 flex-direction: column;
                 text-align: left;
                 justify-content: flex-start;
+                min-height: auto; /* Adjust height for mobile */
+                padding-bottom: 4rem; /* Add some space at the bottom */
             }
             #hero .hero-content {
                 padding-top: 8rem;
+                text-align: left; /* Ensure text is left-aligned on mobile */
+                width: 100%;
             }
             #hero .spline-container {
                 position: relative;
@@ -98,6 +102,7 @@
                 height: 400px;
                 margin-top: 2rem;
                 opacity: 1;
+                z-index: 1; /* Bring it to the front on mobile */
             }
         }
 
@@ -177,19 +182,21 @@
 
         <!-- Hero Section -->
         <section id="hero">
-            <div class="spline-container">
-                <spline-viewer url="https://prod.spline.design/oTNmISHx0v74TNuZ/scene.splinecode"></spline-viewer>
-            </div>
+            <!-- Text Content comes FIRST in the HTML for mobile layout -->
             <div class="hero-content max-w-3xl">
                 <p class="font-mono text-violet-400 mb-4 text-lg">Hi, my name is</p>
                 <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-slate-100 mb-4">Mohammad Anas.</h1>
                 <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-slate-400 mb-8">I build intelligent systems with data.</h2>
-                <p class="text-slate-400 max-w-xl mx-auto md:max-w-none mb-8">
+                <p class="text-slate-400 max-w-xl mx-auto md:max-w-none mb-8 md:text-center">
                     Highly motivated B.Tech CSE graduate with proven analytical skills and experience in developing machine learning models for predictive analysis. Adept at data manipulation using Python and SQL.
                 </p>
                 <a href="#projects" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 inline-block">
                     View My Work
                 </a>
+            </div>
+            <!-- Spline Container comes SECOND -->
+            <div class="spline-container">
+                <spline-viewer url="https://prod.spline.design/oTNmISHx0v74TNuZ/scene.splinecode"></spline-viewer>
             </div>
         </section>
 
