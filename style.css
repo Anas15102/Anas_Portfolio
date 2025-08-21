@@ -1,0 +1,135 @@
+/* Custom styles for a refined look */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0a0a;
+    color: #e2e8f0;
+}
+.font-mono {
+    font-family: 'Roboto Mono', monospace;
+}
+.glass-effect {
+    background: rgba(23, 23, 23, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.section-heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+}
+.section-heading::before {
+    content: '';
+    height: 2px;
+    width: 3rem;
+    background-color: #8b5cf6;
+}
+
+/* Hero Section with 3D Background - FIXED */
+#hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    width: 100%; /* Make hero section full width */
+}
+
+#hero .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 4xl;
+    padding: 1rem; /* Add some padding for text on small screens */
+    margin-top: 200px;
+}
+
+#hero .spline-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 1000px;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+#hero .hero-content h1,
+#hero .hero-content h2 {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Mobile Responsive Layout - FIXED */
+@media (max-width: 800px) {
+    #hero {
+         padding: 6rem 1.5rem 3rem; /* Adjust padding for mobile text */
+    }
+    #hero .hero-content {
+        text-align: left;
+        width: 100%;
+    }
+    #hero .spline-container {
+        width: 680px; /* Make spline larger to fill background */
+        height: 680px;
+        opacity: 0.6;
+        top: 40%;
+        left: 57%;
+    }
+    #hero .hero-content h1 {
+        font-size: 2.5rem;
+        line-height: 1.1;
+    }
+    #hero .hero-content h2 {
+        font-size: 1.8rem;
+        line-height: 1;
+    }
+    #hero .hero-content p {
+        text-align: left;
+        margin-left: 0;
+        margin-right: 0;
+        line-height: 1.2;
+    }
+}
+
+/* Profile Card Styles */
+.profile-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 480px;
+}
+.profile-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(167, 139, 250, 0.5);
+}
+.profile-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease-out;
+}
+.profile-card:hover .profile-card-bg {
+    transform: scale(1.05);
+}
+.profile-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    z-index: 10;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
+}
