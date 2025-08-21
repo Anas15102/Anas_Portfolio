@@ -30,6 +30,6 @@ mobileMenuLinks.forEach(link => {
 document.addEventListener('DOMContentLoaded', function() {
     const cardBg = document.getElementById('profile-card-bg');
     // IMPORTANT: Make sure you have an image named "dp.jpeg" in your project folder.
-    const imageUrl = '/images/dp.jpeg'; 
+    const imageUrl = 'dp.jpeg'; 
     cardBg.style.backgroundImage = `url(${imageUrl})`;
 });
