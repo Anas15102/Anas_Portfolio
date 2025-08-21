@@ -47,15 +47,23 @@
             background-color: #8b5cf6;
         }
         
-        /* Hero Section with 3D Background */
+        /* Hero Section with 3D Background - FIXED */
         #hero {
             position: relative;
+            min-height: 100vh;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            text-align: center;
-            min-height: 90vh;
             overflow: hidden;
+        }
+        
+        /* Desktop Layout */
+        #hero .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 4xl;
+            padding: 2rem;
         }
         
         #hero .spline-container {
@@ -63,46 +71,80 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 1200px;
-            height: 1200px;
-            z-index: 0;
-            opacity: 0.5;
+            width: 1000px;
+            height: 1000px;
+            z-index: 1;
+            opacity: 0.6;
         }
         
-        #hero .hero-content {
-            position: relative;
-            z-index: 1;
-            padding-top: 10rem;
-        }
-
         #hero .hero-content h1,
         #hero .hero-content h2 {
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
         }
 
+        /* Mobile Responsive Layout - FIXED */
         @media (max-width: 768px) {
             #hero {
-                flex-direction: column;
-                text-align: left;
-                justify-content: flex-start;
-                min-height: auto; /* Adjust height for mobile */
-                padding-bottom: 4rem; /* Add some space at the bottom */
-            }
-            #hero .hero-content {
-                padding-top: 8rem;
-                text-align: left; /* Ensure text is left-aligned on mobile */
-                width: 100%;
-            }
-            #hero .spline-container {
+                min-height: 100vh;
+                padding: 6rem 1rem 2rem;
                 position: relative;
-                transform: none;
-                top: auto;
-                left: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            #hero .hero-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                max-width: none;
+                text-align: left;
+                padding: 1rem;
+                z-index: 2;
+            }
+            
+            #hero .spline-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 width: 100%;
                 height: 400px;
-                margin-top: 2rem;
-                opacity: 1;
-                z-index: 1; /* Bring it to the front on mobile */
+                opacity: 0.4;
+                z-index: 1;
+            }
+            
+            /* Mobile text sizing */
+            #hero .hero-content h1 {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            #hero .hero-content h2 {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+            
+            #hero .hero-content p {
+                text-align: left;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #hero .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            #hero .hero-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            #hero .spline-container {
+                height: 350px;
             }
         }
 
@@ -140,6 +182,13 @@
             z-index: 10;
             background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
         }
+        
+        /* Better mobile navigation */
+        @media (max-width: 768px) {
+            .profile-card {
+                height: 400px;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -148,7 +197,7 @@
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4">
             <nav class="flex items-center justify-between">
-                <a href="#" class="text-2xl font-bold text-white">
+                <a href="#" class="text-xl md:text-2xl font-bold text-white">
                     <span class="text-violet-400">&lt;</span>Mohammad Anas<span class="text-violet-400">/&gt;</span>
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
@@ -177,34 +226,34 @@
         </div>
     </div>
 
-
     <main class="container mx-auto px-6">
 
-        <!-- Hero Section -->
+        <!-- Hero Section - FIXED -->
         <section id="hero">
-            <!-- Text Content comes FIRST in the HTML for mobile layout -->
-            <div class="hero-content max-w-3xl">
-                <p class="font-mono text-violet-400 mb-4 text-lg">Hi, my name is</p>
-                <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-slate-100 mb-4">Mohammad Anas.</h1>
-                <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-slate-400 mb-8">I build intelligent systems with data.</h2>
-                <p class="text-slate-400 max-w-xl mx-auto md:max-w-none mb-8 md:text-center">
-                    Highly motivated B.Tech CSE graduate with proven analytical skills and experience in developing machine learning models for predictive analysis. Adept at data manipulation using Python and SQL.
-                </p>
-                <a href="#projects" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 inline-block">
-                    View My Work
-                </a>
-            </div>
-            <!-- Spline Container comes SECOND -->
+            <!-- Spline Container -->
             <div class="spline-container">
                 <spline-viewer url="https://prod.spline.design/oTNmISHx0v74TNuZ/scene.splinecode"></spline-viewer>
+            </div>
+            
+            <!-- Hero Content -->
+            <div class="hero-content">
+                <p class="font-mono text-violet-400 mb-4 text-base md:text-lg">Hi, my name is</p>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-100 mb-4">Mohammad Anas.</h1>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-400 mb-6 md:mb-8">I build intelligent systems with data.</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto md:mx-auto mb-6 md:mb-8 text-base md:text-lg leading-relaxed">
+                    Highly motivated B.Tech CSE graduate with proven analytical skills and experience in developing machine learning models for predictive analysis. Adept at data manipulation using Python and SQL.
+                </p>
+                <a href="#projects" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 md:px-8 rounded-lg transition-transform hover:scale-105 inline-block text-sm md:text-base">
+                    View My Work
+                </a>
             </div>
         </section>
 
         <!-- About Me Section -->
-        <section id="about" class="py-20">
+        <section id="about" class="py-16 md:py-20">
             <h2 class="section-heading">About Me</h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="text-slate-400 space-y-4 text-lg">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="text-slate-400 space-y-4 text-base md:text-lg">
                     <p>
                         Hello! I'm a B.Tech CSE graduate with a passion for leveraging technical and analytical skills to solve complex problems. My journey into technology is driven by a desire to gain hands-on experience and contribute effectively to innovative projects.
                     </p>
@@ -212,19 +261,19 @@
                         I have a strong foundation in developing machine learning models for predictive analysis and am adept at data manipulation using Python and SQL. I'm committed to applying these skills to support strategic initiatives and drive business value.
                     </p>
                 </div>
-                <div class="flex justify-center items-center">
+                <div class="flex justify-center items-center mt-8 md:mt-0">
                      <div class="profile-card w-full max-w-sm rounded-3xl text-left">
                         <!-- Background Image Div -->
                         <div id="profile-card-bg" class="profile-card-bg"></div>
                         
                         <!-- Text Content Overlay -->
                         <div class="profile-card-content">
-                            <h3 class="text-3xl font-bold text-white mb-1" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Mohammad Anas</h3>
-                            <p class="text-violet-300 mb-4">ML & Data Science Enthusiast</p>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-1" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Mohammad Anas</h3>
+                            <p class="text-violet-300 mb-4 text-sm md:text-base">ML & Data Science Enthusiast</p>
                             <div class="flex justify-start space-x-5">
-                                 <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors" aria-label="GitHub"><i data-feather="github" class="w-6 h-6"></i></a>
-                                 <a href="https://www.linkedin.com/in/mohammadanas" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors" aria-label="LinkedIn"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-                                 <a href="mailto:anas.ma.15102@gmail.com" class="text-slate-300 hover:text-white transition-colors" aria-label="Mail"><i data-feather="send" class="w-6 h-6"></i></a>
+                                 <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors" aria-label="GitHub"><i data-feather="github" class="w-5 h-5 md:w-6 md:h-6"></i></a>
+                                 <a href="https://www.linkedin.com/in/mohammadanas" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors" aria-label="LinkedIn"><i data-feather="linkedin" class="w-5 h-5 md:w-6 md:h-6"></i></a>
+                                 <a href="mailto:anas.ma.15102@gmail.com" class="text-slate-300 hover:text-white transition-colors" aria-label="Mail"><i data-feather="send" class="w-5 h-5 md:w-6 md:h-6"></i></a>
                             </div>
                         </div>
                     </div>
@@ -233,56 +282,56 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-20">
+        <section id="skills" class="py-16 md:py-20">
             <h2 class="section-heading">My Tech Stack</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="h-16 w-16 mb-4" alt="Python"/>
-                    <h3 class="font-semibold text-slate-200">Python</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="Python"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">Python</h3>
                 </div>
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" class="h-16 w-16 mb-4" alt="Java"/>
-                    <h3 class="font-semibold text-slate-200">Java</h3>
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="Java"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">Java</h3>
                 </div>
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="h-16 w-16 mb-4" alt="MySQL"/>
-                    <h3 class="font-semibold text-slate-200">MySQL</h3>
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="MySQL"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">MySQL</h3>
                 </div>
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" class="h-16 w-16 mb-4" alt="Scikit-learn"/>
-                    <h3 class="font-semibold text-slate-200">Scikit-learn</h3>
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="Scikit-learn"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">Scikit-learn</h3>
                 </div>
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" class="h-16 w-16 mb-4" alt="Pandas"/>
-                    <h3 class="font-semibold text-slate-200">Pandas</h3>
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="Pandas"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">Pandas</h3>
                 </div>
-                 <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" class="h-16 w-16 mb-4" alt="NumPy"/>
-                    <h3 class="font-semibold text-slate-200">NumPy</h3>
+                 <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="NumPy"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">NumPy</h3>
                 </div>
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="h-16 w-16 mb-4" alt="Git"/>
-                    <h3 class="font-semibold text-slate-200">Git</h3>
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="Git"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">Git</h3>
                 </div>
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="h-16 w-16 mb-4" alt="HTML"/>
-                    <h3 class="font-semibold text-slate-200">HTML</h3>
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="HTML"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">HTML</h3>
                 </div>
-                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="h-16 w-16 mb-4" alt="CSS"/>
-                    <h3 class="font-semibold text-slate-200">CSS</h3>
+                <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="CSS"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">CSS</h3>
                 </div>
-                 <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="h-16 w-16 mb-4" alt="JavaScript"/>
-                    <h3 class="font-semibold text-slate-200">JavaScript</h3>
+                 <div class="glass-effect rounded-lg p-4 md:p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="h-12 w-12 md:h-16 md:w-16 mb-2 md:mb-4" alt="JavaScript"/>
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base">JavaScript</h3>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-20">
+        <section id="projects" class="py-16 md:py-20">
             <h2 class="section-heading">Featured Projects</h2>
-            <div class="space-y-12">
+            <div class="space-y-12 md:space-y-16">
                 <!-- Project Card 1 -->
                 <div class="grid md:grid-cols-12 gap-6 items-center group">
                     <div class="md:col-span-7 relative">
@@ -294,18 +343,18 @@
                     </div>
                     <div class="md:col-span-5 md:text-right">
                         <p class="font-mono text-sm text-violet-400 mb-2">Featured Project</p>
-                        <h3 class="text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Agentic AI - Sahayata AI</a></h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Agentic AI - Sahayata AI</a></h3>
                         <div class="glass-effect rounded-md p-4 mb-4">
-                            <p class="text-slate-400">
+                            <p class="text-slate-400 text-sm md:text-base">
                                 As part of my Agentic AI internship, I developed Sahayata AI, an intelligent agent designed to assist with complex tasks and streamline workflows.
                             </p>
                         </div>
-                        <ul class="flex justify-end space-x-4 font-mono text-sm text-slate-400 mb-4">
+                        <ul class="flex flex-wrap md:justify-end space-x-4 font-mono text-xs md:text-sm text-slate-400 mb-4">
                             <li>Agentic AI</li>
                             <li>Python</li>
                             <li>LLMs</li>
                         </ul>
-                        <div class="flex justify-end space-x-4">
+                        <div class="flex md:justify-end space-x-4">
                             <a href="#" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="GitHub Link"><i data-feather="github"></i></a>
                             <a href="#" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="External Link"><i data-feather="external-link"></i></a>
                         </div>
@@ -316,13 +365,13 @@
                 <div class="grid md:grid-cols-12 gap-6 items-center group">
                     <div class="md:col-span-5 md:text-left order-2 md:order-1">
                         <p class="font-mono text-sm text-violet-400 mb-2">Machine Learning Project</p>
-                        <h3 class="text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Bike Sales Prediction Model</a></h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Bike Sales Prediction Model</a></h3>
                         <div class="glass-effect rounded-md p-4 mb-4">
-                            <p class="text-slate-400">
+                            <p class="text-slate-400 text-sm md:text-base">
                                 Forecasted bike sales using a machine learning model to optimize inventory management, applying EDA, feature engineering, and model evaluation to improve prediction accuracy.
                             </p>
                         </div>
-                        <ul class="flex justify-start space-x-4 font-mono text-sm text-slate-400 mb-4">
+                        <ul class="flex flex-wrap justify-start space-x-4 font-mono text-xs md:text-sm text-slate-400 mb-4">
                             <li>Python</li>
                             <li>Pandas</li>
                             <li>Scikit-learn</li>
@@ -350,18 +399,18 @@
                     </div>
                     <div class="md:col-span-5 md:text-right">
                         <p class="font-mono text-sm text-violet-400 mb-2">Machine Learning Project</p>
-                        <h3 class="text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Car Price Prediction Model</a></h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Car Price Prediction Model</a></h3>
                         <div class="glass-effect rounded-md p-4 mb-4">
-                            <p class="text-slate-400">
+                            <p class="text-slate-400 text-sm md:text-base">
                                 Predicted car prices using specifications and sales data to support pricing strategies. Utilized data visualization and advanced feature engineering to provide actionable insights.
                             </p>
                         </div>
-                        <ul class="flex justify-end space-x-4 font-mono text-sm text-slate-400 mb-4">
+                        <ul class="flex flex-wrap md:justify-end space-x-4 font-mono text-xs md:text-sm text-slate-400 mb-4">
                             <li>Python</li>
                             <li>Data Visualization</li>
                             <li>Feature Engineering</li>
                         </ul>
-                        <div class="flex justify-end space-x-4">
+                        <div class="flex md:justify-end space-x-4">
                             <a href="#" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="GitHub Link"><i data-feather="github"></i></a>
                         </div>
                     </div>
@@ -370,7 +419,7 @@
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="py-20">
+        <section id="experience" class="py-16 md:py-20">
             <h2 class="section-heading">Internships</h2>
             <div class="max-w-3xl mx-auto">
                 <div class="relative border-l-2 border-slate-700">
@@ -383,7 +432,7 @@
                             Agentic AI Intern <span class="bg-violet-900 text-violet-300 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">Recent</span>
                         </h3>
                         <p class="block mb-2 text-sm font-normal leading-none text-slate-500">Training Program</p>
-                        <ul class="list-disc list-inside text-slate-400 space-y-1">
+                        <ul class="list-disc list-inside text-slate-400 space-y-1 text-sm md:text-base">
                             <li>Completed intensive training in Agentic AI principles and development.</li>
                             <li>Developed the "Sahayata AI" project as a practical application of my skills.</li>
                         </ul>
@@ -395,80 +444,11 @@
                         </span>
                         <h3 class="text-lg font-semibold text-slate-100">Data Science Trainee</h3>
                         <p class="block mb-2 text-sm font-normal leading-none text-slate-500">IBM (In-house College Training)</p>
-                        <ul class="list-disc list-inside text-slate-400 space-y-1">
+                        <ul class="list-disc list-inside text-slate-400 space-y-1 text-sm md:text-base">
                             <li>Gained hands-on experience in Python, data analysis, and machine learning.</li>
                             <li>Worked with real-world datasets to build models using Jupyter, Pandas, and Scikit-Learn.</li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 text-center">
-            <h2 class="text-2xl font-semibold text-slate-300 mb-2">What's Next?</h2>
-            <h3 class="text-4xl md:text-5xl font-bold text-slate-100 mb-4">Get In Touch</h3>
-            <p class="max-w-xl mx-auto text-slate-400 mb-8">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious team. Feel free to reach out!
-            </p>
-            <a href="mailto:anas.ma.15102@gmail.com" class="inline-block bg-transparent border-2 border-violet-400 text-violet-400 font-bold py-3 px-8 rounded-lg hover:bg-violet-400 hover:text-slate-900 transition-colors duration-300">
-                Say Hello
-            </a>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-8">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
-            <div class="flex space-x-6 mb-4 md:mb-0">
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="GitHub"><i data-feather="github"></i></a>
-                <a href="https://www.linkedin.com/in/mohammadanas" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
-            </div>
-            <p class="font-mono text-sm text-slate-500">
-                Designed & Built by Mohammad Anas
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        // Initialize Feather Icons
-        feather.replace();
-
-        // Header scroll effect
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('glass-effect', 'shadow-lg');
-            } else {
-                header.classList.remove('glass-effect', 'shadow-lg');
-            }
-        });
-
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
         
-        // Set Profile Card Background
-        document.addEventListener('DOMContentLoaded', function() {
-            const cardBg = document.getElementById('profile-card-bg');
-            // IMPORTANT: Replace this placeholder with your actual image URL
-            const imageUrl = 'dp.jpeg'; 
-            cardBg.style.backgroundImage = `url(${imageUrl})`;
-        });
-
-
-    </script>
-</body>
-</html>
