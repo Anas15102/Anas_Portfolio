@@ -36,6 +36,6 @@ This site is deployed on Vercel, but it can also be easily hosted on other platf
 To run this project locally, simply clone the repository and open the `index.html` file in your web browser.
 
 ```bash
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
+git clone [https://github.com/Anas15102/Anas_Portfolio.git](https://github.com/Anas15102/Anas_Portfolio.git)
+cd Anas_Portfolio
 # Open index.html in your browser
