@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Anas - ML & Data Science Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Spline 3D Viewer Script -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.48/build/spline-viewer.js"></script>
+
+    <style>
+        /* Custom styles for a refined look */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e2e8f0;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .glass-effect {
+            background: rgba(23, 23, 23, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-heading {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #94a3b8;
+        }
+        .section-heading::before {
+            content: '';
+            height: 2px;
+            width: 3rem;
+            background-color: #8b5cf6;
+        }
+        
+        /* Hero Section with 3D Background */
+        #hero {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: center;
+            min-height: 90vh;
+            overflow: hidden;
+        }
+        
+        #hero .spline-container {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1200px;
+            height: 1100px;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        
+        #hero .hero-content {
+            position: relative;
+            z-index: 1;
+            padding-top: 22rem;
+        }
+
+        #hero .hero-content h1,
+        #hero .hero-content h2 {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            #hero {
+                flex-direction: column;
+                text-align: left;
+                justify-content: flex-start;
+            }
+            #hero .hero-content {
+                padding-top: 8rem;
+            }
+            #hero .spline-container {
+                position: relative;
+                transform: none;
+                top: auto;
+                left: auto;
+                width: 100%;
+                height: 400px;
+                margin-top: 2rem;
+                opacity: 1;
+            }
+        }
+
+        /* Profile Card Styles */
+        .profile-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 480px;
+        }
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(167, 139, 250, 0.5);
+        }
+        .profile-card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s ease-out;
+        }
+        .profile-card:hover .profile-card-bg {
+            transform: scale(1.05);
+        }
+        .profile-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            z-index: 10;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold text-white">
+                    <span class="text-violet-400">&lt;</span>Mohammad Anas<span class="text-violet-400">/&gt;</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-slate-300 hover:text-violet-400 transition-colors">About</a>
+                    <a href="#skills" class="text-slate-300 hover:text-violet-400 transition-colors">Skills</a>
+                    <a href="#projects" class="text-slate-300 hover:text-violet-400 transition-colors">Projects</a>
+                    <a href="#experience" class="text-slate-300 hover:text-violet-400 transition-colors">Experience</a>
+                    <a href="#contact" class="bg-violet-600 hover:bg-violet-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">Contact</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <i data-feather="menu"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-40 glass-effect">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#about" class="mobile-menu-link text-2xl text-slate-300 hover:text-violet-400 transition-colors">About</a>
+            <a href="#skills" class="mobile-menu-link text-2xl text-slate-300 hover:text-violet-400 transition-colors">Skills</a>
+            <a href="#projects" class="mobile-menu-link text-2xl text-slate-300 hover:text-violet-400 transition-colors">Projects</a>
+            <a href="#experience" class="mobile-menu-link text-2xl text-slate-300 hover:text-violet-400 transition-colors">Experience</a>
+            <a href="#contact" class="mobile-menu-link bg-violet-600 hover:bg-violet-700 text-white font-medium py-3 px-6 rounded-lg transition-colors text-xl">Contact</a>
+        </div>
+    </div>
+
+
+    <main class="container mx-auto px-6">
+
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="spline-container">
+                <spline-viewer url="https://prod.spline.design/oTNmISHx0v74TNuZ/scene.splinecode"></spline-viewer>
+            </div>
+            <div class="hero-content max-w-3xl">
+                <p class="font-mono text-violet-400 mb-4 text-lg">Hi, my name is</p>
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-slate-100 mb-4">Mohammad Anas.</h1>
+                <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-slate-400 mb-8">I build intelligent systems with data.</h2>
+                <p class="text-slate-400 max-w-xl mx-auto md:max-w-none mb-8">
+                    Highly motivated B.Tech CSE graduate with proven analytical skills and experience in developing machine learning models for predictive analysis. Adept at data manipulation using Python and SQL.
+                </p>
+                <a href="#projects" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 inline-block">
+                    View My Work
+                </a>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-20">
+            <h2 class="section-heading">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-slate-400 space-y-4 text-lg">
+                    <p>
+                        Hello! I'm a B.Tech CSE graduate with a passion for leveraging technical and analytical skills to solve complex problems. My journey into technology is driven by a desire to gain hands-on experience and contribute effectively to innovative projects.
+                    </p>
+                    <p>
+                        I have a strong foundation in developing machine learning models for predictive analysis and am adept at data manipulation using Python and SQL. I'm committed to applying these skills to support strategic initiatives and drive business value.
+                    </p>
+                </div>
+                <div class="flex justify-center items-center">
+                     <div class="profile-card w-full max-w-sm rounded-3xl text-left">
+                        <!-- Background Image Div -->
+                        <div id="profile-card-bg" class="profile-card-bg"></div>
+                        
+                        <!-- Text Content Overlay -->
+                        <div class="profile-card-content">
+                            <h3 class="text-3xl font-bold text-white mb-1" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Mohammad Anas</h3>
+                            <p class="text-violet-300 mb-4">ML & Data Science Enthusiast</p>
+                            <div class="flex justify-start space-x-5">
+                                 <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors" aria-label="GitHub"><i data-feather="github" class="w-6 h-6"></i></a>
+                                 <a href="https://www.linkedin.com/in/mohammadanas" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors" aria-label="LinkedIn"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+                                 <a href="mailto:anas.ma.15102@gmail.com" class="text-slate-300 hover:text-white transition-colors" aria-label="Mail"><i data-feather="send" class="w-6 h-6"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20">
+            <h2 class="section-heading">My Tech Stack</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="h-16 w-16 mb-4" alt="Python"/>
+                    <h3 class="font-semibold text-slate-200">Python</h3>
+                </div>
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" class="h-16 w-16 mb-4" alt="Java"/>
+                    <h3 class="font-semibold text-slate-200">Java</h3>
+                </div>
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="h-16 w-16 mb-4" alt="MySQL"/>
+                    <h3 class="font-semibold text-slate-200">MySQL</h3>
+                </div>
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" class="h-16 w-16 mb-4" alt="Scikit-learn"/>
+                    <h3 class="font-semibold text-slate-200">Scikit-learn</h3>
+                </div>
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" class="h-16 w-16 mb-4" alt="Pandas"/>
+                    <h3 class="font-semibold text-slate-200">Pandas</h3>
+                </div>
+                 <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" class="h-16 w-16 mb-4" alt="NumPy"/>
+                    <h3 class="font-semibold text-slate-200">NumPy</h3>
+                </div>
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="h-16 w-16 mb-4" alt="Git"/>
+                    <h3 class="font-semibold text-slate-200">Git</h3>
+                </div>
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="h-16 w-16 mb-4" alt="HTML"/>
+                    <h3 class="font-semibold text-slate-200">HTML</h3>
+                </div>
+                <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="h-16 w-16 mb-4" alt="CSS"/>
+                    <h3 class="font-semibold text-slate-200">CSS</h3>
+                </div>
+                 <div class="glass-effect rounded-lg p-6 flex flex-col items-center justify-center text-center hover:-translate-y-2 transition-transform">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="h-16 w-16 mb-4" alt="JavaScript"/>
+                    <h3 class="font-semibold text-slate-200">JavaScript</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <h2 class="section-heading">Featured Projects</h2>
+            <div class="space-y-12">
+                <!-- Project Card 1 -->
+                <div class="grid md:grid-cols-12 gap-6 items-center group">
+                    <div class="md:col-span-7 relative">
+                        <a href="#" class="block">
+                            <img src="https://placehold.co/600x360/1e1b4b/a78bfa?text=Sahayata+AI" 
+                                 alt="Sahayata AI Project" 
+                                 class="rounded-lg w-full transition-opacity duration-300 group-hover:opacity-75">
+                        </a>
+                    </div>
+                    <div class="md:col-span-5 md:text-right">
+                        <p class="font-mono text-sm text-violet-400 mb-2">Featured Project</p>
+                        <h3 class="text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Agentic AI - Sahayata AI</a></h3>
+                        <div class="glass-effect rounded-md p-4 mb-4">
+                            <p class="text-slate-400">
+                                As part of my Agentic AI internship, I developed Sahayata AI, an intelligent agent designed to assist with complex tasks and streamline workflows.
+                            </p>
+                        </div>
+                        <ul class="flex justify-end space-x-4 font-mono text-sm text-slate-400 mb-4">
+                            <li>Agentic AI</li>
+                            <li>Python</li>
+                            <li>LLMs</li>
+                        </ul>
+                        <div class="flex justify-end space-x-4">
+                            <a href="#" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="GitHub Link"><i data-feather="github"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="External Link"><i data-feather="external-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 (reversed) -->
+                <div class="grid md:grid-cols-12 gap-6 items-center group">
+                    <div class="md:col-span-5 md:text-left order-2 md:order-1">
+                        <p class="font-mono text-sm text-violet-400 mb-2">Machine Learning Project</p>
+                        <h3 class="text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Bike Sales Prediction Model</a></h3>
+                        <div class="glass-effect rounded-md p-4 mb-4">
+                            <p class="text-slate-400">
+                                Forecasted bike sales using a machine learning model to optimize inventory management, applying EDA, feature engineering, and model evaluation to improve prediction accuracy.
+                            </p>
+                        </div>
+                        <ul class="flex justify-start space-x-4 font-mono text-sm text-slate-400 mb-4">
+                            <li>Python</li>
+                            <li>Pandas</li>
+                            <li>Scikit-learn</li>
+                        </ul>
+                        <div class="flex justify-start space-x-4">
+                            <a href="#" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="GitHub Link"><i data-feather="github"></i></a>
+                        </div>
+                    </div>
+                    <div class="md:col-span-7 relative order-1 md:order-2">
+                        <a href="#" class="block">
+                            <img src="https://placehold.co/600x360/1e1b4b/a78bfa?text=Bike+Sales+Prediction" 
+                                 alt="Bike Sales Prediction" 
+                                 class="rounded-lg w-full transition-opacity duration-300 group-hover:opacity-75">
+                        </a>
+                    </div>
+                </div>
+                 <!-- Project Card 3 -->
+                <div class="grid md:grid-cols-12 gap-6 items-center group">
+                    <div class="md:col-span-7 relative">
+                        <a href="#" class="block">
+                            <img src="https://placehold.co/600x360/1e1b4b/a78bfa?text=Car+Price+Prediction" 
+                                 alt="Car Price Prediction" 
+                                 class="rounded-lg w-full transition-opacity duration-300 group-hover:opacity-75">
+                        </a>
+                    </div>
+                    <div class="md:col-span-5 md:text-right">
+                        <p class="font-mono text-sm text-violet-400 mb-2">Machine Learning Project</p>
+                        <h3 class="text-2xl font-bold text-slate-100 mb-4 hover:text-violet-400 transition-colors"><a href="#">Car Price Prediction Model</a></h3>
+                        <div class="glass-effect rounded-md p-4 mb-4">
+                            <p class="text-slate-400">
+                                Predicted car prices using specifications and sales data to support pricing strategies. Utilized data visualization and advanced feature engineering to provide actionable insights.
+                            </p>
+                        </div>
+                        <ul class="flex justify-end space-x-4 font-mono text-sm text-slate-400 mb-4">
+                            <li>Python</li>
+                            <li>Data Visualization</li>
+                            <li>Feature Engineering</li>
+                        </ul>
+                        <div class="flex justify-end space-x-4">
+                            <a href="#" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="GitHub Link"><i data-feather="github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20">
+            <h2 class="section-heading">Internships</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="relative border-l-2 border-slate-700">
+                    <!-- Experience Item -->
+                    <div class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-violet-900 rounded-full -left-3 ring-8 ring-slate-900">
+                            <svg class="w-3 h-3 text-violet-400" fill="currentColor" viewBox="0 0 20 20"><path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4Z M0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/></svg>
+                        </span>
+                        <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-100">
+                            Agentic AI Intern <span class="bg-violet-900 text-violet-300 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">Recent</span>
+                        </h3>
+                        <p class="block mb-2 text-sm font-normal leading-none text-slate-500">Training Program</p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-1">
+                            <li>Completed intensive training in Agentic AI principles and development.</li>
+                            <li>Developed the "Sahayata AI" project as a practical application of my skills.</li>
+                        </ul>
+                    </div>
+                    <!-- Experience Item -->
+                    <div class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-violet-900 rounded-full -left-3 ring-8 ring-slate-900">
+                            <svg class="w-3 h-3 text-violet-400" fill="currentColor" viewBox="0 0 20 20"><path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4Z M0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/></svg>
+                        </span>
+                        <h3 class="text-lg font-semibold text-slate-100">Data Science Trainee</h3>
+                        <p class="block mb-2 text-sm font-normal leading-none text-slate-500">IBM (In-house College Training)</p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-1">
+                            <li>Gained hands-on experience in Python, data analysis, and machine learning.</li>
+                            <li>Worked with real-world datasets to build models using Jupyter, Pandas, and Scikit-Learn.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center">
+            <h2 class="text-2xl font-semibold text-slate-300 mb-2">What's Next?</h2>
+            <h3 class="text-4xl md:text-5xl font-bold text-slate-100 mb-4">Get In Touch</h3>
+            <p class="max-w-xl mx-auto text-slate-400 mb-8">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious team. Feel free to reach out!
+            </p>
+            <a href="mailto:anas.ma.15102@gmail.com" class="inline-block bg-transparent border-2 border-violet-400 text-violet-400 font-bold py-3 px-8 rounded-lg hover:bg-violet-400 hover:text-slate-900 transition-colors duration-300">
+                Say Hello
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex space-x-6 mb-4 md:mb-0">
+                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="GitHub"><i data-feather="github"></i></a>
+                <a href="https://www.linkedin.com/in/mohammadanas" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-violet-400 transition-colors" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+            </div>
+            <p class="font-mono text-sm text-slate-500">
+                Designed & Built by Mohammad Anas
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-effect', 'shadow-lg');
+            } else {
+                header.classList.remove('glass-effect', 'shadow-lg');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Set Profile Card Background
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardBg = document.getElementById('profile-card-bg');
+            // IMPORTANT: Replace this placeholder with your actual image URL
+            const imageUrl = 'dp.jpeg'; 
+            cardBg.style.backgroundImage = `url(${imageUrl})`;
+        });
+
+
+    </script>
+</body>
+</html>
