@@ -1,4 +1,4 @@
-/* Custom styles for a refined look */
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #0a0a0a;
@@ -31,7 +31,7 @@ body {
     background-color: #8b5cf6;
 }
 
-/* Hero Section with 3D Background - FIXED */
+/* Hero Section with 3D Background */
 #hero {
     position: relative;
     min-height: 100vh;
@@ -40,14 +40,14 @@ body {
     justify-content: center;
     overflow: hidden;
     text-align: center;
-    width: 100%; /* Make hero section full width */
+    width: 100%; 
 }
 
 #hero .hero-content {
     position: relative;
     z-index: 2;
     max-width: 4xl;
-    padding: 1rem; /* Add some padding for text on small screens */
+    padding: 1rem; 
     margin-top: 200px;
 }
 
